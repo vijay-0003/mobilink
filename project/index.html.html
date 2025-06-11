@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mobilink - Electronics Store</title>
+<style>
+  :root {
+    /* Light theme colors */
+    --color-bg: #ffffff;
+    --color-primary: #111827;
+    --color-secondary: #2563eb;
+    --color-text: #374151;
+    --color-gray-light: #f9fafb;
+    --color-gray-muted: #6b7280;
+    --color-input-bg: #fff;
+    --color-border: #d1d5db;
+    --color-shadow-light: rgba(0,0,0,0.1);
+  }
+  /* Dark theme overrides */
+  html[data-theme="dark"] {
+    --color-bg: #121212;
+    --color-primary: #e0e6f0;
+    --color-secondary: #3b82f6;
+    --color-text: #cbd5e1;
+    --color-gray-light: #1e293b;
+    --color-gray-muted: #94a3b8;
+    --color-input-bg: #1f2937;
+    --color-border: #334155;
+    --color-shadow-light: rgba(0,0,0,0.8);
+  }
+  
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+
+  * , *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition:
+      background-color 0.4s cubic-bezier(0.4,0,0.2,1),
+      color 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  a:hover,
+  a:focus {
+    color: #1e40af;
+    outline: none;
+  }
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 1rem 6rem;
+  }
+  h1, h2, h3 {
+    color: var(--color-primary);
+    margin: 0;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    transition: color 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  p {
+    color: var(--color-gray-muted);
+    font-size: 1rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    transition: color 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--color-bg);
+    box-shadow: 0 1px 3px var(--color-shadow-light);
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color 0.4s cubic-bezier(0.4,0,0.2,1),
+                box-shadow 0.4s cubic-bezier(0.4,0,0.2,1),
+                border-color 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    user-select: none;
+    cursor: default;
+    transition: color 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .logo span:first-child {
+    color: var(--color-secondary);
+    margin-right: 0.3rem;
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    transform: translateY(-2px);
+    user-select: none;
+    transition: color 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .nav-links a {
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .nav-links a:hover {
+    background-color: var(--color-gray-light);
+  }
+  /* Theme Toggle Button */
+  #theme-toggle {
+    background: none;
+    border: 1.5px solid var(--color-secondary);
+    border-radius: 9999px;
+    padding: 0.35rem 1rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    user-select: none;
+  }
+  #theme-toggle:hover, #theme-toggle:focus {
+    background-color: var(--color-secondary);
+    color: white;
+    outline: none;
+    border-color: var(--color-secondary);
+  }
+  #theme-toggle svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    transition: transform 0.3s ease;
+  }
+  main {
+    transition: background-color 0.4s cubic-bezier(0.4,0,0.2,1), color 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  /* Hero Section */
+  .hero {
+    padding: 6rem 1rem 4rem;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 3.75rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+  .hero p {
+    font-size: 1.25rem;
+    color: var(--color-gray-muted);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2.5rem;
+  }
+  .btn-primary {
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    padding: 0.9rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.35s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 1px 3px var(--color-shadow-light);
+  }
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background-color: #1d4ed8;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    outline: none;
+    transform: scale(1.05);
+  }
+  /* Products Section */
+  #products {
+    padding-top: 3rem;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+    gap: 2rem;
+  }
+  .product-card {
+    background-color: var(--color-gray-light);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px var(--color-shadow-light);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    transition: box-shadow 0.3s ease, background-color 0.4s ease;
+  }
+  .product-card:hover {
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+  }
+  .product-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: contain;
+    border-radius: 0.75rem;
+    background-color: var(--color-bg);
+    margin-bottom: 1rem;
+    transition: background-color 0.4s ease;
+  }
+  .product-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    margin-bottom: 0.25rem;
+    transition: color 0.4s ease;
+  }
+  .product-description {
+    font-size: 0.9rem;
+    color: var(--color-gray-muted);
+    flex-grow: 1;
+    margin-bottom: 0.75rem;
+    transition: color 0.4s ease;
+  }
+  .product-price-stock {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-secondary);
+    margin-bottom: 0.75rem;
+    transition: color 0.4s ease;
+  }
+  .product-stock.low {
+    color: #dc2626;
+    font-weight: 700;
+  }
+  .quantity-select {
+    width: 60px;
+    font-size: 1rem;
+    font-family: inherit;
+    padding: 0.25rem 0.5rem;
+    border: 1.5px solid var(--color-border);
+    border-radius: 0.5rem;
+    transition: border-color 0.25s ease, background-color 0.4s ease, color 0.4s ease;
+    margin-right: 0.75rem;
+    background-color: var(--color-input-bg);
+    color: var(--color-text);
+  }
+  .quantity-select:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+  }
+  .add-to-cart-btn {
+    background-color: var(--color-secondary);
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    user-select: none;
+    flex-shrink: 0;
+  }
+  .add-to-cart-btn:hover,
+  .add-to-cart-btn:focus {
+    background-color: #1d4ed8;
+    transform: scale(1.05);
+    outline: none;
+  }
+  /* Cart */
+  #cart {
+    margin: 3rem auto 1rem;
+    max-width: 600px;
+    background-color: var(--color-gray-light);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px var(--color-shadow-light);
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    color: var(--color-primary);
+    user-select: none;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+  #cart h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    transition: color 0.4s ease;
+  }
+  #cart-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 0 1rem 0;
+    max-height: 250px;
+    overflow-y: auto;
+  }
+  #cart-list li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  #cart-list li span {
+    min-width: 80px;
+    text-align: right;
+  }
+  .remove-item-btn {
+    background: none;
+    border: none;
+    color: var(--color-secondary);
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s ease;
+  }
+  .remove-item-btn:hover,
+  .remove-item-btn:focus {
+    color: #1d4ed8;
+    outline: none;
+  }
+  /* Order form */
+  #order-section {
+    margin-top: 1rem;
+    padding: 3rem 1rem 3rem;
+    background-color: var(--color-gray-light);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px var(--color-shadow-light);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+  #order-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    text-align: center;
+    transition: color 0.4s ease;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  label {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-primary);
+    transition: color 0.4s ease;
+  }
+  input, textarea {
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1.5px solid var(--color-border);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition:
+      border-color 0.25s ease,
+      background-color 0.4s ease,
+      color 0.4s ease;
+    resize: vertical;
+    background-color: var(--color-input-bg);
+    color: var(--color-text);
+  }
+  input:focus, textarea:focus {
+    border-color: var(--color-secondary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+  }
+  textarea {
+    min-height: 100px;
+  }
+  #place-order-btn {
+    background-color: var(--color-secondary);
+    color: white;
+    font-weight: 700;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 1px 3px var(--color-shadow-light);
+    user-select: none;
+  }
+  #place-order-btn:hover, #place-order-btn:focus {
+    background-color: #1d4ed8;
+    transform: scale(1.05);
+    outline: none;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+  }
+  footer {
+    text-align: center;
+    color: var(--color-gray-muted);
+    font-size: 0.875rem;
+    padding: 3rem 1rem 6rem;
+    user-select: none;
+    transition: color 0.4s ease;
+  }
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 2.5rem;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+    #order-section {
+      max-width: 100%;
+      padding: 2rem 1rem;
+    }
+    #cart {
+      max-width: 100%;
+      padding: 1rem;
+    }
+  }
+  /* Accessibility helper */
+  .sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    border: 0 !important;
+  }
+</style>
+</head>
+<body>
+<header>
+  <nav>
+    <div class="logo" aria-label="Mobilink Logo" role="img" title="Mobilink">
+      <span>M</span>obilink
+    </div>
+    <div class="nav-links">
+      <a href="#products" role="link" tabindex="0">Product Catalog</a>
+      <a href="#cart" role="link" tabindex="0" id="cart-link" aria-live="polite" aria-atomic="true">Cart (0)</a>
+      <button id="theme-toggle" aria-label="Toggle light and dark mode" title="Toggle light and dark mode" aria-pressed="false">
+        <svg id="theme-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        Light Mode
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" aria-label="Hero section">
+    <h1>Mobilink</h1>
+    <p>Your trusted electronics store — quality products, great prices, fast service.</p>
+    <button class="btn-primary" onclick="scrollToProducts()" aria-label="Browse product catalog">Browse Products</button>
+  </section>
+
+  <section id="products" aria-label="Product catalog">
+    <h2>Product Catalog</h2>
+    <div class="products-grid" id="productsGrid" aria-live="polite" aria-relevant="additions"></div>
+  </section>
+
+  <section id="cart" aria-label="Shopping Cart">
+    <h2>Your Cart</h2>
+    <ul id="cart-list" aria-live="polite" aria-relevant="additions" aria-label="List of cart items">
+      <li id="cart-empty-msg">Your cart is empty.</li>
+    </ul>
+  </section>
+
+  <section id="order-section" aria-label="Place order form">
+    <h2>Place Your Order</h2>
+    <form id="orderForm" novalidate>
+      <label for="customerName">Name <span aria-hidden="true" style="color:#dc2626">*</span></label>
+      <input id="customerName" name="customerName" type="text" autocomplete="name" required aria-required="true" placeholder="Your full name" />
+
+      <label for="customerAddress">Address <span aria-hidden="true" style="color:#dc2626">*</span></label>
+      <textarea id="customerAddress" name="customerAddress" rows="2" autocomplete="street-address" required aria-required="true" placeholder="Your delivery address"></textarea>
+
+      <label for="contactNumber">Contact Number <span aria-hidden="true" style="color:#dc2626">*</span></label>
+      <input id="contactNumber" name="contactNumber" type="tel" required aria-required="true" placeholder="+1 555 123 4567" pattern="^\\+?[0-9\\s-]{7,15}$" />
+
+      <label for="optionalInfo">Additional Notes (optional)</label>
+      <textarea id="optionalInfo" name="optionalInfo" rows="2" placeholder="Any additional information or product details"></textarea>
+
+      <button type="submit" id="place-order-btn" aria-label="Place order via WhatsApp">Place Order via WhatsApp</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  &copy; 2024 Mobilink. All rights reserved.
+</footer>
+
+<script>
+  // Products data
+  const products = [
+    {
+      id: 1,
+      name: "Wireless Earbuds Pro",
+      description: "Premium sound quality, active noise cancellation, and 30-hour battery life for all-day listening.",
+      price: 400,
+      stock: 13,
+      image: "https://images.unsplash.com/photo-1600185364706-114bb7b96f0f?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: 2,
+      name: "bluethoot speaker x1",
+      description: "mini compact size with high base audio quality.",
+      price: 699.99,
+      stock: 8,
+      image: "https://images.unsplash.com/photo-1512499617640-c2f99901915c?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: 3,
+      name: "Portable Bluetooth Speaker",
+      description: "Compact and waterproof speaker with deep bass and 15 hours of playback time.",
+      price: 95.99,
+      stock: 5,
+      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: 4,
+      name: "Smartwatch Series 5",
+      description: "Track heart rate, sleep, GPS navigation, and sync notifications seamlessly on your wrist.",
+      price: 199.99,
+      stock: 4,
+      image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: 5,
+      name: "Laptop UltraBook 14\"",
+      description: "Lightweight laptop with Intel i7 processor, 16GB RAM, 512GB SSD, and vibrant Full HD display.",
+      price: 1099.99,
+      stock: 6,
+      image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: 6,
+      name: "Wireless Gaming Mouse",
+      description: "Ergonomic mouse with programmable buttons, adjustable DPI, and RGB lighting.",
+      price: 49.99,
+      stock: 20,
+      image: "https://images.unsplash.com/photo-1587825140408-7f815c174528?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: 7,
+      name: "External Hard Drive 1TB",
+      description: "High-speed USB 3.0 external HDD for backup and data transfer up to 150MB/s.",
+      price: 64.99,
+      stock: 10,
+      image: "https://images.unsplash.com/photo-1562183248-c5ca89d6a986?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: 8,
+      name: "Wireless Charging Pad",
+      description: "Fast Qi wireless charger compatible with all Qi-enabled devices, slim and lightweight.",
+      price: 29.99,
+      stock: 30,
+      image: "https://images.unsplash.com/photo-1543939283-8eaf7d598c39?auto=format&fit=crop&w=600&q=80"
+    }
+  ];
+
+  // Cart and available stock
+  const cart = {};
+  const availableStock = {};
+  products.forEach(p => {
+    availableStock[p.id] = p.stock;
+  });
+
+  const productsGrid = document.getElementById('productsGrid');
+  const cartList = document.getElementById('cart-list');
+  const cartLink = document.getElementById('cart-link');
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+
+  function updateCartCount() {
+    const totalCount = Object.values(cart).reduce((a,b)=>a+b,0);
+    cartLink.textContent = `Cart (${totalCount})`;
+  }
+
+  function loadProducts() {
+    productsGrid.innerHTML = '';
+    products.forEach(product => {
+      const stockLeft = availableStock[product.id];
+      const lowStockClass = (stockLeft > 0 && stockLeft <= 5) ? 'low' : '';
+      const isOutOfStock = stockLeft <= 0;
+      const card = document.createElement('article');
+      card.className = 'product-card';
+      card.setAttribute('data-product-id', product.id);
+      card.innerHTML = `
+        <img src="${product.image}" alt="Image of ${product.name}" class="product-image" loading="lazy" />
+        <h3 class="product-name">${product.name}</h3>
+        <p class="product-description">${product.description}</p>
+        <div class="product-price-stock">
+          <span>$${product.price.toFixed(2)}</span>
+          <span class="product-stock ${lowStockClass}">
+            ${isOutOfStock ? 'Out of stock' : stockLeft + ' in stock'}
+          </span>
+        </div>
+        <div style="display:flex; align-items:center;">
+          <label for="qty-${product.id}" class="sr-only">Quantity for ${product.name}</label>
+          <select id="qty-${product.id}" class="quantity-select" aria-label="Quantity for ${product.name}" ${isOutOfStock ? "disabled" : ""}>
+            ${[...Array(Math.min(stockLeft, 10)).keys()].map(i => `<option value="${i+1}">${i+1}</option>`).join('')}
+          </select>
+          <button class="add-to-cart-btn" data-product-id="${product.id}" ${isOutOfStock ? "disabled" : ""} aria-disabled="${isOutOfStock}">Add to Cart</button>
+        </div>
+      `;
+      productsGrid.appendChild(card);
+    });
+  }
+
+  function renderCart() {
+    cartList.innerHTML = '';
+    const productIds = Object.keys(cart);
+    if(productIds.length === 0) {
+      const emptyMsg = document.createElement('li');
+      emptyMsg.id = 'cart-empty-msg';
+      emptyMsg.textContent = 'Your cart is empty.';
+      cartList.appendChild(emptyMsg);
+      return;
+    }
+    productIds.forEach(id => {
+      const product = products.find(p => p.id == id);
+      const quantity = cart[id];
+      const li = document.createElement('li');
+      li.innerHTML = `
+        ${product.name} x ${quantity}
+        <span>
+          $${(product.price * quantity).toFixed(2)}
+          <button class="remove-item-btn" aria-label="Remove ${product.name} from cart" data-product-id="${product.id}">&times;</button>
+        </span>`;
+      cartList.appendChild(li);
+    });
+  }
+
+  function updateProductStock(productId) {
+    const stockLeft = availableStock[productId];
+    const card = productsGrid.querySelector(`article[data-product-id="${productId}"]`);
+    if (!card) return;
+    const stockElem = card.querySelector('.product-stock');
+    const lowStockClass = (stockLeft > 0 && stockLeft <= 5) ? 'low' : '';
+    stockElem.className = 'product-stock ' + lowStockClass;
+    stockElem.textContent = stockLeft > 0 ? `${stockLeft} in stock` : 'Out of stock';
+    const select = card.querySelector(`select.quantity-select`);
+    const addBtn = card.querySelector('button.add-to-cart-btn');
+    if (stockLeft <= 0) {
+      select.innerHTML = '';
+      select.disabled = true;
+      addBtn.disabled = true;
+      addBtn.setAttribute('aria-disabled', 'true');
+    } else {
+      const curValue = parseInt(select.value,10);
+      const maxQty = Math.min(stockLeft, 10);
+      let optionsHtml = '';
+      for(let i = 1; i <= maxQty; i++) {
+        optionsHtml += `<option value="${i}">${i}</option>`;
+      }
+      select.innerHTML = optionsHtml;
+      if(curValue && curValue <= maxQty) {
+        select.value = curValue;
+      }
+      select.disabled = false;
+      addBtn.disabled = false;
+      addBtn.setAttribute('aria-disabled', 'false');
+    }
+  }
+
+  function addToCart(productId, quantity) {
+    const product = products.find(p => p.id == productId);
+    if(!product) return;
+    const available = availableStock[productId];
+    if(quantity > available) {
+      alert(`Cannot add more than ${available} units of ${product.name} to cart.`);
+      return;
+    }
+    cart[productId] = (cart[productId] || 0) + quantity;
+    availableStock[productId] -= quantity;
+    updateCartCount();
+    renderCart();
+    updateProductStock(productId);
+  }
+
+  function removeFromCart(productId) {
+    if(cart[productId]) {
+      availableStock[productId] += cart[productId];
+      delete cart[productId];
+      updateCartCount();
+      renderCart();
+      updateProductStock(productId);
+    }
+  }
+
+  productsGrid.addEventListener('click', e => {
+    if(e.target.classList.contains('add-to-cart-btn')) {
+      const productId = e.target.getAttribute('data-product-id');
+      const select = document.getElementById(`qty-${productId}`);
+      const qty = parseInt(select.value, 10);
+      if (qty > 0) {
+        addToCart(productId, qty);
+      }
+    }
+  });
+
+  cartList.addEventListener('click', e => {
+    if(e.target.classList.contains('remove-item-btn')) {
+      const productId = e.target.getAttribute('data-product-id');
+      removeFromCart(productId);
+    }
+  });
+
+  function scrollToProducts() {
+    document.getElementById('products').scrollIntoView({behavior: 'smooth'});
+  }
+
+  document.getElementById('orderForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = this.customerName.value.trim();
+    const address = this.customerAddress.value.trim();
+    const contact = this.contactNumber.value.trim();
+    const notes = this.optionalInfo.value.trim();
+
+    if(!name || !address || !contact) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    const phoneRegex = /^\+?[0-9\s-]{7,15}$/;
+    if(!phoneRegex.test(contact)) {
+      alert('Please enter a valid contact number.');
+      return;
+    }
+    if(Object.keys(cart).length === 0) {
+      alert('Your cart is empty. Please add products before placing an order.');
+      return;
+    }
+
+    let productsText = '';
+    Object.entries(cart).forEach(([id, qty]) => {
+      const p = products.find(prod => prod.id == id);
+      productsText += `${p.name} x ${qty} @ $${p.price.toFixed(2)} each\n`;
+    });
+
+    let message = `Hello Mobilink,%0A%0AI have an order with the following details:%0A`;
+    message += `Name: ${encodeURIComponent(name)}%0A`;
+    message += `Address: ${encodeURIComponent(address)}%0A`;
+    message += `Contact Number: ${encodeURIComponent(contact)}%0A`;
+    message += `Order Items:%0A${encodeURIComponent(productsText)}%0A`;
+    if(notes) {
+      message += `Additional Notes: ${encodeURIComponent(notes)}%0A`;
+    }
+    message += `%0AThank you!`;
+
+    // TODO: Replace with your WhatsApp number (international format without '+' sign)
+    const whatsappNumber = '9123782290';
+
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+  });
+
+  // Theme toggle logic with localStorage persistence
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    const isDark = theme === 'dark';
+    themeToggleBtn.setAttribute('aria-pressed', isDark);
+    themeToggleBtn.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    themeToggleBtn.prepend(createThemeIcon(isDark));
+    localStorage.setItem('mobilink-theme', theme);
+  }
+
+  // Create sun/moon icon svg element for button
+  function createThemeIcon(isDark) {
+    const ns = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("id","theme-icon");
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("fill", "none");
+    svg.setAttribute("stroke", "currentColor");
+    svg.setAttribute("stroke-width", "2");
+    svg.setAttribute("stroke-linecap", "round");
+    svg.setAttribute("stroke-linejoin", "round");
+    if(isDark) {
+      // Moon icon for dark mode (moon shape)
+      svg.innerHTML = `
+        <path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79z"></path>`;
+    } else {
+      // Sun icon for light mode (circle + rays)
+      svg.innerHTML = `
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
+    }
+    return svg;
+  }
+
+  themeToggleBtn.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+  });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    loadProducts();
+    renderCart();
+    updateCartCount();
+
+    // Load theme from localStorage or default light
+    const savedTheme = localStorage.getItem('mobilink-theme');
+    if(savedTheme === 'dark') {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
+  });
+</script>
+</body>
+</html>
+
+
+
+
